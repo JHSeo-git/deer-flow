@@ -37,6 +37,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "black>=24.2.0",
+    "isort>=6.0.1"
 ]
 test = [
     "pytest>=7.4.0",
@@ -64,3 +65,7 @@ extend-exclude = '''
 # in the root of the project.
 ^/build/
 '''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3

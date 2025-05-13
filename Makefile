@@ -5,9 +5,11 @@ install-dev:
 
 format:
 	uv run black --preview .
+	uv run isort --profile black .
 
 lint:
 	uv run black --check .
+	uv run isort --check-only --profile black .
 
 serve:
 	uv run server.py --reload

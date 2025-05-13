@@ -3,16 +3,17 @@
 
 import os
 
+from src.config import SELECTED_SEARCH_ENGINE, SearchEngine
+
 from .crawl import crawl_tool
 from .python_repl import python_repl_tool
 from .search import (
-    tavily_search_tool,
-    duckduckgo_search_tool,
-    brave_search_tool,
     arxiv_search_tool,
+    brave_search_tool,
+    duckduckgo_search_tool,
+    tavily_search_tool,
 )
 from .tts import VolcengineTTS
-from src.config import SELECTED_SEARCH_ENGINE, SearchEngine
 
 # Map search engine names to their respective tools
 search_tool_mappings = {

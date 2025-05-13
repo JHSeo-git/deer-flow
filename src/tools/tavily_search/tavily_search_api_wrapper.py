@@ -3,7 +3,9 @@ from typing import Dict, List, Optional
 
 import aiohttp
 import requests
-from langchain_community.utilities.tavily_search import TAVILY_API_URL
+from langchain_community.utilities.tavily_search import (
+    TAVILY_API_URL,
+)
 from langchain_community.utilities.tavily_search import (
     TavilySearchAPIWrapper as OriginalTavilySearchAPIWrapper,
 )

@@ -1,11 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
-import json
-import pytest
-from unittest.mock import patch, MagicMock
-import uuid
 import base64
+import json
+import uuid
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 from src.tools.tts import VolcengineTTS
 
