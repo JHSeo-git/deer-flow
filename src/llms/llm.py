@@ -46,10 +46,10 @@ def _create_llm_use_conf(
         cleaned_conf = {k: v for k, v in llm_conf.items() if k not in config_keys}
         # combine cleaned_conf with azure_config
         final_conf = {**cleaned_conf, **azure_config}
-        return AzureChatOpenAI(**final_conf)  # 使用AzureChatOpenAI
+        return AzureChatOpenAI(**final_conf)  # use AzureChatOpenAI
     else:
         # use default ChatOpenAI
-        return ChatOpenAI(**llm_conf)  # 使用ChatOpenAI
+        return ChatOpenAI(**llm_conf)  # use ChatOpenAI
 
 
 def get_llm_by_type(
