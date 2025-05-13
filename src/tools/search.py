@@ -10,11 +10,10 @@ from langchain_community.tools.arxiv import ArxivQueryRun
 from langchain_community.utilities import ArxivAPIWrapper, BraveSearchWrapper
 
 from src.config import SEARCH_MAX_RESULTS
+from src.tools.decorators import create_logged_tool
 from src.tools.tavily_search.tavily_search_results_with_images import (
     TavilySearchResultsWithImages,
 )
-
-from src.tools.decorators import create_logged_tool
 
 logger = logging.getLogger(__name__)
 
