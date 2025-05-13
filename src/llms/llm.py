@@ -2,18 +2,20 @@
 # SPDX-License-Identifier: MIT
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
-from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI, ChatOpenAI
 
 from src.config import load_yaml_config
 from src.config.agents import LLMType
 
-# Cache for LLM instances
-_llm_cache: dict[LLMType, ChatOpenAI] = {}
+# Cache for LLM instances - use union to support both ChatOpenAI and AzureChatOpenAI
+_llm_cache: dict[LLMType, Union[ChatOpenAI, AzureChatOpenAI]] = {}
 
 
-def _create_llm_use_conf(llm_type: LLMType, conf: Dict[str, Any]) -> ChatOpenAI:
+def _create_llm_use_conf(
+    llm_type: LLMType, conf: Dict[str, Any]
+) -> Union[ChatOpenAI, AzureChatOpenAI]:
     llm_type_map = {
         "reasoning": conf.get("REASONING_MODEL"),
         "basic": conf.get("BASIC_MODEL"),
@@ -24,12 +26,35 @@ def _create_llm_use_conf(llm_type: LLMType, conf: Dict[str, Any]) -> ChatOpenAI:
         raise ValueError(f"Unknown LLM type: {llm_type}")
     if not isinstance(llm_conf, dict):
         raise ValueError(f"Invalid LLM Conf: {llm_type}")
-    return ChatOpenAI(**llm_conf)
+
+    # handle Azure specific configurations
+    if llm_conf.get("use_azure"):
+        azure_config = {
+            "azure_endpoint": llm_conf.get("api_base"),
+            "azure_deployment": llm_conf.get("deployment_name"),
+            "api_version": llm_conf.get("api_version"),
+            "api_key": llm_conf.get("api_key"),
+        }
+        # remove azure specific keys from llm_conf
+        config_keys = [
+            "use_azure",
+            "api_base",
+            "deployment_name",
+            "api_version",
+            "api_key",
+        ]
+        cleaned_conf = {k: v for k, v in llm_conf.items() if k not in config_keys}
+        # combine cleaned_conf with azure_config
+        final_conf = {**cleaned_conf, **azure_config}
+        return AzureChatOpenAI(**final_conf)  # 使用AzureChatOpenAI
+    else:
+        # use default ChatOpenAI
+        return ChatOpenAI(**llm_conf)  # 使用ChatOpenAI
 
 
 def get_llm_by_type(
     llm_type: LLMType,
-) -> ChatOpenAI:
+) -> Union[ChatOpenAI, AzureChatOpenAI]:
     """
     Get LLM instance by type. Returns cached instance if available.
     """
