@@ -21,4 +21,8 @@ conf.yaml
 .idea/
 .langgraph_api/
 
+# coverage report
+coverage.xml
+coverage/
+
 *.pem

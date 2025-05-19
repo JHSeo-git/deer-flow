@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from .loader import load_yaml_config
 from .questions import BUILT_IN_QUESTIONS, BUILT_IN_QUESTIONS_ZH_CN
-from .tools import SEARCH_MAX_RESULTS, SELECTED_SEARCH_ENGINE, SearchEngine
+from .tools import SELECTED_SEARCH_ENGINE, SearchEngine
 
 # Load environment variables
 load_dotenv()
@@ -42,7 +42,6 @@ __all__ = [
     # Other configurations
     "TEAM_MEMBERS",
     "TEAM_MEMBER_CONFIGRATIONS",
-    "SEARCH_MAX_RESULTS",
     "SELECTED_SEARCH_ENGINE",
     "SearchEngine",
     "BUILT_IN_QUESTIONS",
