@@ -18,7 +18,7 @@ from src.config.configuration import Configuration
 from src.llms.llm import get_llm_by_type
 from src.prompts.planner_model import Plan, StepType
 from src.prompts.template import apply_prompt_template
-from src.tools import crawl_tool, get_web_search_tool, python_repl_tool, web_search_tool
+from src.tools import crawl_tool, get_web_search_tool, python_repl_tool
 from src.tools.search import LoggedTavilySearch
 from src.utils.json_utils import repair_json_output
 
